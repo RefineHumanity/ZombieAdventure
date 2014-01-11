@@ -12,6 +12,8 @@ public class Situation {
 		//Each situation likely has an event that goes with it, text to display, actions to take, 
 		
 	}
+	
+	
 }
 
 	

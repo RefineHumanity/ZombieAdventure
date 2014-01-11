@@ -1,8 +1,9 @@
 package com.refinehumanity.zombieadventure;
-import java.lang.Math;
 
+import java.util.List;
 
 public class PartyMembers {
+	
 	
 	private int healthMax;
 	private int moralMax;
@@ -52,5 +53,23 @@ public class PartyMembers {
 	public int getMoral() {
 		return moral;
 	}
+	
+	public int modHealth(int deltaHealth) {
+		if (health + deltaHealth > healthMax) {return healthMax;}
+		else return health + deltaHealth;
+	}
+	
+	public int modMoral(int deltaMoral) {
+		if (moral + deltaMoral > moralMax) {return moralMax;}
+		else return moral + deltaMoral;
+	}
+	
+	public void refreshParty(List<PartyMembers> partyMemberList) {
+		for (PartyMembers partyMember : partyMemberList) {
+			//todo
+		}
+	}
+	
+	
 	
 }

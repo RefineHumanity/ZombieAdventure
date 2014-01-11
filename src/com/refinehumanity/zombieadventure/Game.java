@@ -18,6 +18,7 @@ import com.refinehumanity.zombieadventure.PartyMembers;
 
 public class Game extends Activity {
 
+	private int supplies;
 	String[] situations = {"You get rabies and die.", "You are attacked by a zombie!", "You gain a party member", "You got cheetos.", "Crickets." };
 	String[] partyMembers = {"Gerald", "Elizabeth", "Robert", "Periwinkle", "Alistaire", "Rebecca", "Civilized Zombie", "Rabid Cinnabon Employee" };
 	String[] Items = {"Hot dog", "Cereal", "Silver Bullet", "Anchovies", "Balloon", "Shotgun", "Shotgun Shell", "Shotgun Shell", "Vampire Bat", "Sterile Gauze" };
