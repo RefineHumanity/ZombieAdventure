@@ -15,6 +15,11 @@
         Actually this is all
         just one example and I am not sure how it will actually display
         </string>
+        <string name="example_text"> This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. 
+            This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. 
+            This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. 
+            This is yet another example. This is yet another example. This is yet another example. This is yet another example. This is yet another example. </string>
+     <string name = "situation_title">Situation</string>
 
     
 </resources>

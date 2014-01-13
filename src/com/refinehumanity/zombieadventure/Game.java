@@ -5,20 +5,20 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import com.refinehumanity.zombieadventure.PartyMembers;
 
 public class Game extends Activity {
 
-	private int supplies;
+	//private int supplies;
 	String[] situations = {"You get rabies and die.", "You are attacked by a zombie!", "You gain a party member", "You got cheetos.", "Crickets." };
 	String[] partyMembers = {"Gerald", "Elizabeth", "Robert", "Periwinkle", "Alistaire", "Rebecca", "Civilized Zombie", "Rabid Cinnabon Employee" };
 	String[] Items = {"Hot dog", "Cereal", "Silver Bullet", "Anchovies", "Balloon", "Shotgun", "Shotgun Shell", "Shotgun Shell", "Vampire Bat", "Sterile Gauze" };
@@ -30,10 +30,30 @@ public class Game extends Activity {
 	Map<String, List<String>> gameMenuCollection;
 	ExpandableListView expListView;
 	
+	public boolean isFirstPass;
+	public int day = 0;
+	public int r = generateSituationNumber(isFirstPass);
+	public String SITUATION_KEY = "SITUATION_KEY";
+	
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		updateViews();
+		/*
 		setContentView(R.layout.game_main_screen);
+		
+		Situation currentSituation = new Situation();
+		currentSituation.createSituationLists();
+
+		TextView situationView = (TextView) findViewById(R.id.situation_main_screen_summary);
+		situationView.setText(Situation.situationSummaryList.get(r));
+		situationView.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent i = new Intent(getBaseContext(), Situation.class);
+				i.putExtra (SITUATION_KEY, r);
+				startActivity(i);
+			}
+		});
 		
 		//Creating the group and child lists and putting in collection
 		createGroupList();
@@ -54,6 +74,51 @@ public class Game extends Activity {
 				return true;
 			}
 		});
+		
+		startGameLogic();
+		*/
+
+	}
+	
+	protected void updateViews() {
+		
+		r = generateSituationNumber(isFirstPass);
+		setContentView(R.layout.game_main_screen);
+		
+		Situation currentSituation = new Situation();
+		currentSituation.createSituationLists();
+
+		TextView situationView = (TextView) findViewById(R.id.situation_main_screen_summary);
+		situationView.setText(Situation.situationSummaryList.get(r));
+		situationView.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent i = new Intent(getBaseContext(), Situation.class);
+				i.putExtra (Situation.CURRENT_SITUATION_KEY, r);
+				startActivity(i);
+			}
+		});
+		
+		//Creating the group and child lists and putting in collection
+		createGroupList();
+		
+		createCollection();
+		
+		expListView = (ExpandableListView) findViewById(R.id.gameMenuList);
+		final ExpandableListAdapter expListAdapter = new ExpandableListAdapter (
+				this, groupList, gameMenuCollection);
+		expListView.setAdapter(expListAdapter);
+		
+		expListView.setOnChildClickListener(new OnChildClickListener() {
+			
+			public boolean onChildClick(ExpandableListView parent, View v,
+				int groupPosition, int childPosition, long id) {
+				final String selected = (String) expListAdapter.getChild(groupPosition, childPosition);
+				Toast.makeText(getBaseContext(), selected, Toast.LENGTH_LONG).show();
+				return true;
+			}
+		});
+		
+		startGameLogic();
 
 	}
 	
@@ -61,6 +126,7 @@ public class Game extends Activity {
 	protected void onResume() {
 		super.onResume();
 		Music.play(this, R.raw.improvemaj);
+		updateViews();
 	}
 
 	@Override
@@ -106,6 +172,18 @@ public class Game extends Activity {
 		for (String childItem : gameItem) {
 			childList.add(childItem);
 		}
+	}
+	
+	private void startGameLogic() {
+		//Where game loop starts as needed
+		
+	}
+
+	
+	
+	public int generateSituationNumber(boolean isFirstPass) {
+		if (isFirstPass) {isFirstPass = false; return 0;}
+		else return (int) (Math.random()*Situation.situationSummaryList.size());
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
