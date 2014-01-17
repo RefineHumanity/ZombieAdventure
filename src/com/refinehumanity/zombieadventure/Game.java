@@ -32,56 +32,19 @@ public class Game extends Activity {
 	
 	public boolean isFirstPass;
 	public int day = 0;
-	public int r = generateSituationNumber(isFirstPass);
+	public int r = 0;
 	public String SITUATION_KEY = "SITUATION_KEY";
 	
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		updateViews();
-		/*
-		setContentView(R.layout.game_main_screen);
-		
-		Situation currentSituation = new Situation();
-		currentSituation.createSituationLists();
-
-		TextView situationView = (TextView) findViewById(R.id.situation_main_screen_summary);
-		situationView.setText(Situation.situationSummaryList.get(r));
-		situationView.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Intent i = new Intent(getBaseContext(), Situation.class);
-				i.putExtra (SITUATION_KEY, r);
-				startActivity(i);
-			}
-		});
-		
-		//Creating the group and child lists and putting in collection
-		createGroupList();
-		
-		createCollection();
-		
-		expListView = (ExpandableListView) findViewById(R.id.gameMenuList);
-		final ExpandableListAdapter expListAdapter = new ExpandableListAdapter (
-				this, groupList, gameMenuCollection);
-		expListView.setAdapter(expListAdapter);
-		
-		expListView.setOnChildClickListener(new OnChildClickListener() {
-			
-			public boolean onChildClick(ExpandableListView parent, View v,
-				int groupPosition, int childPosition, long id) {
-				final String selected = (String) expListAdapter.getChild(groupPosition, childPosition);
-				Toast.makeText(getBaseContext(), selected, Toast.LENGTH_LONG).show();
-				return true;
-			}
-		});
-		
-		startGameLogic();
-		*/
 
 	}
 	
 	protected void updateViews() {
 		
+		//This currently reloads situation every time the view changes from portrait to layout..
 		r = generateSituationNumber(isFirstPass);
 		setContentView(R.layout.game_main_screen);
 		
