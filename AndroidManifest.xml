@@ -35,6 +35,10 @@
             android:name="com.refinehumanity.zombieadventure.Situation"
             android:label="@string/situation_title"
             android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name="com.refinehumanity.zombieadventure.SituationResult"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Dialog" />
 
     </application>
 

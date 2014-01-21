@@ -5,12 +5,12 @@ import java.util.List;
 public class PartyMembers {
 	
 	
-	private int healthMax;
-	private int moralMax;
-	private int health;
-	private int moral;
-	private String sex;
-	private String name;
+	public int healthMax;
+	public int moralMax;
+	public int health;
+	public int moral;
+	public String sex;
+	public String name;
 	
 	private static final String[] DEFAULT_NAMES_WOMAN = {"Jennifer", "Abigail", "Cindy", "Olivia", "Sally", "Ingela", "Angie", "Sarah", "Josephine", "Calipso", "Jay", "Kate",
 		"Silvia", "Katja", "Nimi", "Kim", "Summer", "Hope", "Ji-eun", "Jackie", "Olive"};
@@ -40,10 +40,12 @@ public class PartyMembers {
 	}
 	
 	public String getName() {
+		return name;
+	}
+	public void createName() {
 		//Prompt user for name or let pick default.. auto fill in default first
 		int r = (int) (Math.random() * DEFAULT_NAMES_WOMAN.length);
 		name = DEFAULT_NAMES_WOMAN[r];
-		return name;
 	}
 	
 	public int getHealth() {

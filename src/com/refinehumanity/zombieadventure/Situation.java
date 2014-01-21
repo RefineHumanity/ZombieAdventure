@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,8 +23,10 @@ public class Situation extends Activity {
 	public static  List<String> situationChoiceTwoList = new ArrayList<String>();
 	public static  List<String> situationChoiceThreeList = new ArrayList<String>();
 	
+	public String situationResultText = "";
 	public static final String CURRENT_SITUATION_KEY = 
 			"com.refinehumanity.zombieadventure.SITUATION_KEY";
+	public static final String SITUATION_RESULT_KEY = "SITUATION_RESULT_KEY";
 	
 	public String currentSituationKey;
 	public int r = 7;
@@ -33,41 +36,6 @@ public class Situation extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		updateViews();
-		
-		/*
-		setContentView(R.layout.situation);
-		
-		TextView situationTextView = (TextView) findViewById(R.id.situation_text);
-		((TextView) situationTextView.findViewById(R.id.situation_text)).setText(situationTextList.get(getIntent().getIntExtra(currentSituationKey, r)));
-		TextView situationChoiceOneView = (TextView) findViewById(R.id.situation_choice_1);
-		((TextView) situationChoiceOneView.findViewById(R.id.situation_choice_1)).setText(situationChoiceOneList.get(getIntent().getIntExtra(currentSituationKey, r)));
-		TextView situationChoiceTwoView = (TextView) findViewById(R.id.situation_choice_2);
-		((TextView) situationChoiceTwoView.findViewById(R.id.situation_choice_2)).setText(situationChoiceTwoList.get(getIntent().getIntExtra(currentSituationKey, r)));
-		
-		
-		situationChoiceOneView.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				situationUnfinished=false;
-				//Find way to pass a lot of info back to main screen
-				//but that can vary with each situation.. 
-				//For now, just close this activity
-				finish();
-			}
-		});
-		
-		situationChoiceTwoView.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				situationUnfinished=false;
-				//Find way to pass a lot of info back to main screen
-				//but that can vary with each situation.. 
-				//For now, just close this activity
-				finish();
-			}
-		});
-		
-		
-		//view.setAlpha((float) .7);
-		*/
 	}
 	
 	
@@ -85,10 +53,14 @@ public class Situation extends Activity {
 		situationChoiceOneView.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				situationUnfinished=false;
+				
 				//Find way to pass a lot of info back to main screen
 				//but that can vary with each situation.. 
 				//For now, just close this activity
 				finish();
+				Intent intent = new Intent(getBaseContext(), SituationResult.class);
+				intent.putExtra(SituationResult.CURRENT_SITUATION_RESULT_KEY, situationResult(getIntent().getIntExtra(CURRENT_SITUATION_KEY, r), 1));
+				startActivity(intent);
 			}
 		});
 		
@@ -99,6 +71,9 @@ public class Situation extends Activity {
 				//but that can vary with each situation.. 
 				//For now, just close this activity
 				finish();
+				Intent intent = new Intent(getBaseContext(), SituationResult.class);
+				intent.putExtra(SituationResult.CURRENT_SITUATION_RESULT_KEY, situationResult(getIntent().getIntExtra(CURRENT_SITUATION_KEY, r), 2));
+				startActivity(intent);
 			}
 		});
 		
@@ -110,8 +85,6 @@ public class Situation extends Activity {
 		super.onResume();
 		updateViews();
 	}
-	
-		
 		
 
 	Map<String, List<String>> situationMap;
@@ -126,6 +99,8 @@ public class Situation extends Activity {
 	public void createSituationLists() {
 		//Currently 10 situations
 		
+		//Each situation list is a string[] with a situation summary for the main game screen, 
+		//a situation text for the situation activity, and at least two choices for the situation that occurs
 		String[] situationSummaryArray = {"Situation 1", "Situation 2", "Situation 3", "Situation 4", "Situation 5", "Situation 6", "Situation 7", "Situation 8", 
 				"Situation 9", "Situation 10"};
 		for (String s : situationSummaryArray) {
@@ -147,6 +122,29 @@ public class Situation extends Activity {
 		for (String s : situationChoiceTwoArray) {
 			situationChoiceTwoList.add(s);
 		}
+		
+	}
+	
+	public String situationResult(int mSituationKey, int choice ) {
+		
+		switch(mSituationKey) {
+		case 0:
+			if (choice == 1) {
+				String s = "You killed the zombie!";
+				//Put alterations to partyMembers here, same for all situations
+				return s;						
+			}
+			if (choice == 2) {
+				String s = "You ran from the zombie! Luckily, it wasn't all that fast and you escaped with most of your limbs.";
+				return s;
+			}
+			else return "This is default text";
+		default: 
+			return "This is default text because the situation doesn't exist yet.";
+		
+		}
+			
+		
 		
 	}
 	
